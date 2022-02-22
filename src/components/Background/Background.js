@@ -73,6 +73,8 @@ export default (props) => {
         p5.fill(250);
         ellipsesArr.forEach(ellipse => {
             //Draw circle
+            p5.stroke('#222222');
+            p5.strokeWeight(1);
             p5.fill(100, 50)
             p5.ellipse(ellipse.x, ellipse.y, 70, 70);
 
@@ -101,10 +103,41 @@ export default (props) => {
 		// NOTE: Do not use setState in the draw function or in functions that are executed
 		// in the draw function...
 		// please use normal variables or class properties for these purposes
+
+
+        //Draw circle around mouse
+        const x = p5.mouseX;
+        const y = p5.mouseY;
+
+        p5.fill(p5.color('hsla(160, 90%, 60%, 0.1)'))
+        p5.stroke('rgb(0,255,0)');
+        p5.strokeWeight();
+        const ourCircle = p5.circle(x, y, 500)
+        
+        
+
 	};
 
     const windowResized = (p5) => {
         p5.resizeCanvas(window.innerWidth, window.innerHeight);
     }
-	return <Sketch windowResized={windowResized} className='sketch' setup={setup} draw={draw} />;
+
+    const mouseClicked = (p5) => {
+        const x = p5.mouseX;
+        const y = p5.mouseY;
+
+        p5.fill(p5.color('hsla(160, 10%, 60%, 0.1)'))
+        p5.stroke('rgb(0,255,0)');
+        p5.strokeWeight(1);
+
+        // const ourCircle = p5.circle(x, y, 500)
+        const div = p5.createDiv('');
+        div.style('border-radius', '100%');
+        div.style('z-index', '300')
+        div.position(x-30, y-30);
+        div.elt.className = 'mouseCircle'
+        console.log(div.elt);
+        
+    } 
+	return <Sketch mouseClicked={mouseClicked} windowResized={windowResized} className='sketch' setup={setup} draw={draw} />;
 };
